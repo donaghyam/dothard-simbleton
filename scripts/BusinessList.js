@@ -1,0 +1,87 @@
+import { businesses } from "./Business.js";
+import { getBusinesses } from "./database.js";
+
+//----LISTING ALL BUSINESSES--------
+
+
+//Define variable to store array of business
+const businessArray = getBusinesses()
+
+//Function to list businesses
+export const businessList = () => {
+    //Define variable to store html content
+    let businessListHtml = document.querySelector(".business")
+    businessListHtml.innerHTML = "<h1>Active Businesses</h1>"
+    //Use forEach array method to run businesses function for each object
+    businessArray.forEach(
+        (businessObject) => {
+            businessListHtml.innerHTML += businesses(businessObject)
+        }
+    );
+    return businessListHtml
+}
+
+
+//----LISTING NEW YORK BUSINESSES--------
+
+//Function to list only NY business
+const checkForNY = (businessObject) => {
+   //Check each object for business states with "NY"
+    if (businessObject.addressStateCode === "NY") {
+        return true
+    } 
+    return false
+}
+
+//Function to create new array of filtered items
+const nyBusinessesArray = () => {
+    const filteredItems = businessArray.filter(checkForNY)
+    return filteredItems
+}
+
+export const nyBusinessList = () => {
+    //Define variable to store html content
+    let businessListHtmlNY = document.querySelector(".businessList--newYork")
+    businessListHtmlNY.innerHTML = "<h1>New York Businesses</h1>"
+    //Define variable to hold new array from nyBusinessesArray function
+    const nyArray = nyBusinessesArray()
+    nyArray.forEach(
+        (businessObject) => {
+            businessListHtmlNY.innerHTML += businesses(businessObject)
+    });
+    return businessListHtmlNY
+}
+
+//----LISTING MANUFACTURING BUSINESSES--------
+
+//Function to list only NY business
+const checkForManufacturing = (businessObject) => {
+    //Check each object for manufacturing
+    if (businessObject.companyIndustry === "Manufacturing") {
+        return true
+    } 
+    return false
+}
+
+ //Function to create new array of filtered items
+const manufacturingBusinessesArray = () => {
+    const filteredItems = businessArray.filter(checkForManufacturing)
+    return filteredItems
+ }
+ 
+export const manufacturingBusinessList = () => {
+     //Define variable to store html content
+    let businessListHtmlManufacturing = document.querySelector(".businessList--manufacturing")
+    businessListHtmlManufacturing.innerHTML = "<h1>Manufacturing Businesses</h1>"
+     //Define variable to hold new array from manufacturingBusinessesArray function
+    const manufacturingArray = manufacturingBusinessesArray()
+    manufacturingArray.forEach(
+        (businessObject) => {
+            businessListHtmlManufacturing.innerHTML += businesses(businessObject)
+    });
+    return businessListHtmlManufacturing
+}
+
+
+
+
