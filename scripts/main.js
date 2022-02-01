@@ -1,8 +1,6 @@
 import { businessList, nyBusinessList, manufacturingBusinessList } from "./businessList.js";
 import { agentListHTML } from "./PurchasingAgents.js";
 
-// const mainContainer = document.querySelector("#container")
-
 const applicationHTML = `
 <article class="business">
 ${businessList()}
@@ -17,4 +15,3 @@ ${manufacturingBusinessList()}
 ${agentListHTML()}
 </article>
 `
-// mainContainer.innerHTML = applicationHTML

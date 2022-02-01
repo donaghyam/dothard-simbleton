@@ -5,7 +5,7 @@ const businesses = getBusinesses()
 
 
 //Function to create new array with only purchasing agents info
-const purchasingAgents = () => {
+export const purchasingAgents = () => {
     const onlyNames = businesses.map(purchasingAgentObject => {
         return purchasingAgentObject.purchasingAgent
     })
