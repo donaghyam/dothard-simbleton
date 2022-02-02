@@ -1,11 +1,30 @@
 import { businesses } from "./Business.js";
 import { getBusinesses } from "./database.js";
+import { purchasingAgents, agentListHTML, agentListHTMLforSearch } from "./PurchasingAgents.js";
+
+
+//Define variable to store array of purchasing agents
+const agentArray = purchasingAgents()
+
 
 //----LISTING ALL BUSINESSES--------
 
 
 //Define variable to store array of business
 const businessArray = getBusinesses()
+
+//Function to add fullName to businessArray
+const businessListAddNames = () => {
+    let newBusinessArray = businessArray
+    newBusinessArray.forEach(
+        (businessObject) => {
+            businessObject.purchasingAgent.fullName = `${businessObject.purchasingAgent.nameFirst} ${businessObject.purchasingAgent.nameLast}`
+        }
+    )
+    return newBusinessArray
+}
+
+const businessArrayFull = businessListAddNames()
 
 //Function to list businesses
 export const businessList = () => {
@@ -82,6 +101,9 @@ export const manufacturingBusinessList = () => {
     return businessListHtmlManufacturing
 }
 
+//-----------SEARCH--------------------------------------
+
+
 const companySearchResultArticle = document.querySelector(".foundCompanies")
 
 document
@@ -99,11 +121,12 @@ document
                         Example: business.companyName.includes(keyPressEvent.target.value)
                     */
                     const input = document.getElementById("companySearch").value
-                    const foundBusiness = businessArray.find(business => business.companyName.includes(input))
-                            if (foundBusiness === undefined){
+                    const foundBusiness = businessArrayFull.find(agent => agent.purchasingAgent.fullName.includes(input))
+                    const foundAgent = agentArray.find(agent => agent.nameFirst.includes(input))
+                            if (foundAgent === undefined){
                                 window.alert("huh?")
                             } else {
-                            companySearchResultArticle.innerHTML += `${businesses(foundBusiness)}`
+                            companySearchResultArticle.innerHTML += agentListHTMLforSearch(foundAgent, foundBusiness)
                             }
                 }
         });

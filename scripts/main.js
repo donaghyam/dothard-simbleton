@@ -1,5 +1,5 @@
 import { businessList, nyBusinessList, manufacturingBusinessList } from "./businessList.js";
-import { agentListHTML } from "./PurchasingAgents.js";
+import { agentList } from "./PurchasingAgents.js";
 
 const applicationHTML = `
 <article class="business">
@@ -12,6 +12,6 @@ ${nyBusinessList()}
 ${manufacturingBusinessList()}
 </article>
 <article class="agents">
-${agentListHTML()}
+${agentList()}
 </article>
 `

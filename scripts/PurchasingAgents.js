@@ -13,14 +13,14 @@ export const purchasingAgents = () => {
 }
 
 //Define variable to store html content
-let purchasingAgentsHTML = document.querySelector(".agents")
+export let purchasingAgentsHTML = document.querySelector(".agents")
 
 //Function to list purchasing agent names from new array
-export const agentListHTML = () => {
-    purchasingAgentsHTML.innerHTML = "<h1>Purchasing Agents</h1>"
+export const agentList = () => {
     //Define variable store new array from previous functions
     const newAgentArray = purchasingAgents()
     //Use forEach array method to iterate through newAgentArray
+    purchasingAgentsHTML.innerHTML = "<h1>Purchasing Agents</h1>"
     newAgentArray.forEach(
         (agentObject) => {
             //Use forEach array method to iterate through businesses array
@@ -28,20 +28,38 @@ export const agentListHTML = () => {
                 (businessObject) => {
                     //Check if last name of agent array = last name on business array
                     if (agentObject.nameLast === businessObject.purchasingAgent.nameLast){
-                        //If true, add names, company name, and phone number to html string
-                        purchasingAgentsHTML.innerHTML += `
-                            <section>
-                            <h1>${businessObject.purchasingAgent.nameFirst} ${businessObject.purchasingAgent.nameLast}</h1> 
-                            ${businessObject.companyName} <br><br>
-                            ${businessObject.phoneWork} <br><br>
-                            <div class="lines">
-                            </div>
-                            </section>
-                        `
+                        //If true, invoke agentListHTML function
+                        purchasingAgentsHTML = agentListHTML(agentObject, businessObject)
                     }
                 }
             )
         }
     );
     return purchasingAgentsHTML
+}
+
+//Function to take results of agentList and put it in html
+export const agentListHTML = (agentObject, businessObject) => {
+    purchasingAgentsHTML.innerHTML += `
+        <section>
+        <h1>${agentObject.nameFirst} ${agentObject.nameLast}</h1> 
+        ${businessObject.companyName} <br><br>
+        ${businessObject.phoneWork} <br><br>
+        <div class="lines">
+        </div>
+        </section>
+    `
+    return purchasingAgentsHTML
+}
+
+export const agentListHTMLforSearch = (agentObject, businessObject) => {
+    return `
+        <section>
+        <h1>${agentObject.nameFirst} ${agentObject.nameLast}</h1> 
+        ${businessObject.companyName} <br><br>
+        ${businessObject.phoneWork} <br><br>
+        <div class="lines">
+        </div>
+        </section>
+    `
 }
