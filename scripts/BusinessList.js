@@ -1,11 +1,12 @@
 import { businesses } from "./Business.js";
 import { getBusinesses } from "./database.js";
-import { purchasingAgents, agentListHTML, agentListHTMLforSearch } from "./PurchasingAgents.js";
+import { purchasingAgents, agentListHTML, agentListHTMLforSearch, purchasingAgentsFullNames } from "./PurchasingAgents.js";
 
 
 //Define variable to store array of purchasing agents
 const agentArray = purchasingAgents()
 
+const agentArrayFull = purchasingAgentsFullNames()
 
 //----LISTING ALL BUSINESSES--------
 
@@ -24,7 +25,7 @@ const businessListAddNames = () => {
     return newBusinessArray
 }
 
-const businessArrayFull = businessListAddNames()
+const businessArrayFull = businessListAddNames() 
 
 //Function to list businesses
 export const businessList = () => {
@@ -122,7 +123,7 @@ document
                     */
                     const input = document.getElementById("companySearch").value
                     const foundBusiness = businessArrayFull.find(agent => agent.purchasingAgent.fullName.includes(input))
-                    const foundAgent = agentArray.find(agent => agent.nameFirst.includes(input))
+                    const foundAgent = agentArrayFull.find(agent => agent.fullName.includes(input))
                             if (foundAgent === undefined){
                                 window.alert("huh?")
                             } else {

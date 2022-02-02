@@ -12,13 +12,27 @@ export const purchasingAgents = () => {
     return onlyNames
 }
 
+//Function to add fullName to purchasingAgents
+export const purchasingAgentsFullNames = () => {
+    let newPurchasingAgentsArray = purchasingAgents()
+    newPurchasingAgentsArray.forEach(
+        (agentObject) => {
+            agentObject.fullName = `${agentObject.nameFirst} ${agentObject.nameLast}`
+        }
+    )
+    return newPurchasingAgentsArray
+}
+
+const purchasingAgentsArray = purchasingAgentsFullNames() 
+
+
 //Define variable to store html content
 export let purchasingAgentsHTML = document.querySelector(".agents")
 
 //Function to list purchasing agent names from new array
 export const agentList = () => {
     //Define variable store new array from previous functions
-    const newAgentArray = purchasingAgents()
+    const newAgentArray = purchasingAgentsArray
     //Use forEach array method to iterate through newAgentArray
     purchasingAgentsHTML.innerHTML = "<h1>Purchasing Agents</h1>"
     newAgentArray.forEach(
